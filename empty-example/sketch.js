@@ -4,10 +4,14 @@ let initial = [1,2,3,4,8,0,7,6,5];
 // let initial = [1,2,3,4,0,5,6,7,8];
 let count = 0;
 let visited = [];
+let solution = [];
+let xCoord = 30;
+let yCoord = 20;
+let goal = [1,2,3,4,5,6,7,8,0];
 
 function setup(){
   createCanvas(windowWidth,windowHeight);
-  background(0);
+  // background(0);
 }
 
 q = [];
@@ -16,7 +20,7 @@ depth = 0;
 nodes = 0;
 parent = initial;
 
-while(q.length != 0 ){
+while(q.length > 0 ){
   x = q.pop();
 
   // check if the node is already visited here..
@@ -31,9 +35,9 @@ while(q.length != 0 ){
   depth = x[2];
   nodes += 1;
 
-  // if (depth == 100){
-  //   continue;
-  // }
+  if (depth == 100){
+    continue;
+  }
   depth += 1;
     
   // console.log(depth);
@@ -54,6 +58,9 @@ while(q.length != 0 ){
       console.log("Number of moves"+depth);
       console.log("Number of nodes"+nodes);
       console.log("Solution Found");
+      console.log("Visited NOdes");
+      console.log(visited);
+      visited.push(goal);
       throw new Error('Exit of the program');
     }else{
       count++;
@@ -73,6 +80,7 @@ function alreadyVisited(value){
       return false;
     }
   }
+  return false;
 }
 
 function compareTwoArray(arr1,arr2){
@@ -222,6 +230,21 @@ function possibleOperations(num,depth){
   return move_list;
 }
 
+
 function draw(){
 
+  for(var i=0;i<visited.length;++i){
+    if (yCoord+40>height){
+      yCoord = 20;
+      xCoord += 120;
+    }
+    rect(xCoord,yCoord,100,20);
+    
+    text(visited[i],xCoord+5,yCoord+15);
+    yCoord += 30; 
+  }
+
+ noLoop();
+  
+  
 }
